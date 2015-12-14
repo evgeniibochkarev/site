@@ -2,7 +2,11 @@ var Vec3 = require("vec3").Vec3;
 
 module.exports.player=function(player)
 {
-  player._client.on('block_place', async ({location} = {}) => {
+  player._client.on('block_place', async ({ direction, heldItem, location } = {}) => {
+    console.log(location, heldItem, direction)
+
+    if(direction==-1 || heldItem.blockId==-1) return;
+
     var referencePosition=new Vec3(location.x,location.y,location.z);
     if (player.crouching) return;
     try {
